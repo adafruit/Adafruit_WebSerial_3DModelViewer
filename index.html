@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Adafruit 3D Model Viewer</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      // Redirect to HTTPS if HTTP is requested.
+      if (window.location.protocol === 'http:') {
+        window.location.href = 'https:' + window.location.href.substring(5);
+      }
+    </script>
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="https://adafruit-webserial-plotter.glitch.me/style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://adafruit-webserial-plotter.glitch.me/light.css" id="light" class="alternate" disabled>
+    <link rel="stylesheet" href="https://adafruit-webserial-plotter.glitch.me/dark.css"  id="dark"  class="alternate" disabled>
+    
+    <!-- import the webpage's javascript file -->
+    <script type="module" src="/script.js" defer></script>
+  </head>  
+  <body>
+    <header class="header">
+      <h1>Adafruit 3D Model Viewer</h1>
+    </header>
+    <main class="main">
+      <div id="notSupported" class="notSupported">
+        Sorry, <b>Web Serial</b> is not supported on this device, make sure you're 
+        running Chrome 78 or later and have enabled the 
+        <code>#enable-experimental-web-platform-features</code> flag in
+        <code>chrome://flags</code>
+      </div>
+      <div id="webGLnotSupported" class="notSupported">
+        Sorry, <b>WebGL</b> is not supported on this device.
+      </div>
+
+      <div class="controls">
+        <button id="butConnect" type="button">Connect</button>
+        <select id="baudRate"></select>
+        <span>
+          <select id="angle_type">
+            <option value="quaternion">Quaternions</option>
+            <option value="euler">Euler Angles</option>
+          </select>
+         </span>
+        <input type="checkbox" id="darkmode"> Dark Mode
+      </div>
+      <div class="animation-container">
+        <canvas id="canvas"></canvas>
+      </div>
+      <div id="log"></div>
+      <div class="controls">
+        <input type="checkbox" id="autoscroll"> Autoscroll
+        <input type="checkbox" id="showTimestamp"> Show Timestamp
+        <button id="butClear" type="button">Clear</button>
+      </div>
+      <!--<textarea id="log" readonly></textarea>-->
+      <!-- include the Glitch button to show what the webpage is about and
+            to make it easier for folks to view source and remix -->
+      <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+      <script src="https://button.glitch.me/button.js"></script>
+    </main>
+  </body>
+</html>
+
