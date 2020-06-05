@@ -1,0 +1,51 @@
+.header {
+  background: #000;
+  color: #fff;
+}
+
+body {
+  background-color: #282828;
+  color: #fff;
+}
+
+canvas {
+  border-color: #666;
+  background-color: #383838;
+}
+
+input, select, button {
+  background-color: #454545;
+  color: #fff;
+}
+
+.serial-input input {
+  background-color: #383838;
+  border-color: #666;
+}
+
+.serial-input input:disabled,
+.serial-input button:disabled {
+  border-color: #333;
+  color: #666;
+}
+
+.timestamp {
+  color: #888;
+}
+
+#notSupported {
+  background-color: red;
+  color: white;
+}
+
+.log {
+  border-color: #666;
+  background-color: #383838;
+  color: #ccc;
+}
+
+.calibration-container {
+  border-color: #666;
+  background-color: #383838;  
+}
+

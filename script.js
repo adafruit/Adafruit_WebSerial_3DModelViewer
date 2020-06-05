@@ -18,9 +18,11 @@ let inputDone;
 let outputDone;
 let inputStream;
 let outputStream;
+let showCalibration = false;
 
 let orientation = [0, 0, 0];
 let quaternion = [1, 0, 0, 0];
+let calibration = [0, 0, 0, 0];
 
 const maxLogLength = 500;
 const baudRates = [300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 74880, 115200, 230400, 250000, 500000, 1000000, 2000000];
@@ -35,6 +37,8 @@ const lightSS = document.getElementById('light');
 const darkSS = document.getElementById('dark');
 const darkMode = document.getElementById('darkmode');
 const canvas = document.querySelector('#canvas');
+const calContainer = document.getElementById('calibration');
+const logContainer = document.getElementById("log-container");
 
 fitToContainer(canvas);
 
@@ -115,6 +119,7 @@ async function disconnect() {
   
   await port.close();
   port = null;
+  showCalibration = false;
 }
 
 /**
@@ -131,6 +136,13 @@ async function readLoop() {
       }
       if (value.substr(0, 11) == "Quaternion:") {
         quaternion = value.substr(11).trim().split(",").map(x=>+x);
+      }
+      if (value.substr(0, 12) == "Calibration:") {
+        calibration = value.substr(12).trim().split(" ").map(x=>+x);
+        if (!showCalibration) {
+          showCalibration = true;
+          updateTheme();
+        }
       }
     }
     if (done) {
@@ -180,11 +192,18 @@ function updateTheme() {
   } else {
     enableStyleSheet(lightSS, true);
   }
+  
+  if (showCalibration && !logContainer.classList.contains('show-calibration')) {
+    logContainer.classList.add('show-calibration')
+  } else if (!showCalibration && logContainer.classList.contains('show-calibration')) {
+    logContainer.classList.remove('show-calibration')
+  }
 }
 
 function enableStyleSheet(node, enabled) {
   node.disabled = !enabled;
 }
+
 
 /**
  * @name reset
@@ -304,6 +323,7 @@ function toggleUIConnected(connected) {
     lbl = 'Disconnect';
   }
   butConnect.textContent = lbl;
+  updateTheme()
 }
 
 function initBaudRate() {
@@ -340,6 +360,29 @@ let isWebGLAvailable = function() {
   } catch (e) {
     return false;
   }
+}
+
+
+function updateCalibration() {
+  // Update the Calibration Container with the values from calibration
+  const calMap = [
+    {caption: "Uncalibrated",         color: "#CC0000"},
+    {caption: "Partially Calibrated", color: "#FF6600"},
+    {caption: "Mostly Calibrated",    color: "#FFCC00"},
+    {caption: "Fully Calibrated",     color: "#009900"},
+  ];
+  const calLabels = [
+    "System", "Gyro", "Accelerometer", "Magnetometer"
+  ]
+
+  calContainer.innerHTML = "";  
+  for (var i = 0; i < calibration.length; i++) {
+    let calInfo = calMap[calibration[i]];
+    let element = document.createElement("div");
+    element.innerHTML = calLabels[i] + ": " + calInfo.caption;
+    element.style = "color: " + calInfo.color;
+    calContainer.appendChild(element);
+  }    
 }
 
 function saveSetting(setting, value) {
@@ -413,7 +456,7 @@ function render() {
   }
 
   renderer.render(scene, camera);
-
+  updateCalibration();
   requestAnimationFrame(render);
 }
 

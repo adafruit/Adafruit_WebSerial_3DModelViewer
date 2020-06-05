@@ -13,22 +13,21 @@
     </script>
     
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="https://adafruit-webserial-plotter.glitch.me/style.css">
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="https://adafruit-webserial-plotter.glitch.me/light.css" id="light" class="alternate" disabled>
-    <link rel="stylesheet" href="https://adafruit-webserial-plotter.glitch.me/dark.css"  id="dark"  class="alternate" disabled>
+    <link rel="stylesheet" href="/light.css" id="light" class="alternate" disabled>
+    <link rel="stylesheet" href="/dark.css"  id="dark"  class="alternate" disabled>
     
     <!-- import the webpage's javascript file -->
     <script type="module" src="/script.js" defer></script>
-  </head>  
+  </head>
   <body>
     <header class="header">
       <h1>Adafruit 3D Model Viewer</h1>
     </header>
     <main class="main">
       <div id="notSupported" class="notSupported">
-        Sorry, <b>Web Serial</b> is not supported on this device, make sure you're 
-        running Chrome 78 or later and have enabled the 
+        Sorry, <b>Web Serial</b> is not supported on this device, make sure you're
+        running Chrome 78 or later and have enabled the
         <code>#enable-experimental-web-platform-features</code> flag in
         <code>chrome://flags</code>
       </div>
@@ -50,7 +49,10 @@
       <div class="animation-container">
         <canvas id="canvas"></canvas>
       </div>
-      <div id="log"></div>
+      <div id="log-container" class="row">
+        <div id="log" class="log"></div>
+        <div id="calibration" class="calibration-container"></div>
+      </div>
       <div class="controls">
         <input type="checkbox" id="autoscroll"> Autoscroll
         <input type="checkbox" id="showTimestamp"> Show Timestamp
@@ -64,4 +66,3 @@
     </main>
   </body>
 </html>
-
