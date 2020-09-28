@@ -444,12 +444,12 @@ function render() {
   
   if (bunny != undefined) {
     if (angleType.value == "euler") {
-      bunny.rotation.x = THREE.Math.degToRad(360 - orientation[1]);
+      bunny.rotation.x = THREE.Math.degToRad(360 - orientation[2]);
       bunny.rotation.y = THREE.Math.degToRad(orientation[0]);
-      bunny.rotation.z = THREE.Math.degToRad(360 - orientation[2]);
+      bunny.rotation.z = THREE.Math.degToRad(orientation[1]);
     } else {
       let rotObjectMatrix = new THREE.Matrix4();
-      let rotationQuaternion = new THREE.Quaternion(quaternion[2], quaternion[3], quaternion[1], quaternion[0]);
+      let rotationQuaternion = new THREE.Quaternion(quaternion[1], quaternion[3], -1 * quaternion[2], quaternion[0]);
       rotObjectMatrix.makeRotationFromQuaternion(rotationQuaternion);
       bunny.quaternion.setFromRotationMatrix(rotObjectMatrix);
     }
