@@ -138,7 +138,7 @@ async function readLoop() {
         quaternion = value.substr(11).trim().split(",").map(x=>+x);
       }
       if (value.substr(0, 12) == "Calibration:") {
-        calibration = value.substr(12).trim().split(" ").map(x=>+x);
+        calibration = value.substr(12).trim().split(",").map(x=>+x);
         if (!showCalibration) {
           showCalibration = true;
           updateTheme();
@@ -168,7 +168,7 @@ function logData(line) {
   if (log.textContent.split("\n").length > maxLogLength + 1) {
     let logLines = log.innerHTML.replace(/(\n)/gm, "").split("<br>");
     log.innerHTML = logLines.splice(-maxLogLength).join("<br>\n");
-  }  
+  }
       
   if (autoscroll.checked) {
     log.scrollTop = log.scrollHeight
@@ -375,14 +375,14 @@ function updateCalibration() {
     "System", "Gyro", "Accelerometer", "Magnetometer"
   ]
 
-  calContainer.innerHTML = "";  
+  calContainer.innerHTML = "";
   for (var i = 0; i < calibration.length; i++) {
     let calInfo = calMap[calibration[i]];
     let element = document.createElement("div");
     element.innerHTML = calLabels[i] + ": " + calInfo.caption;
     element.style = "color: " + calInfo.color;
     calContainer.appendChild(element);
-  }    
+  }
 }
 
 function saveSetting(setting, value) {
@@ -451,7 +451,7 @@ function render() {
       let rotObjectMatrix = new THREE.Matrix4();
       let rotationQuaternion = new THREE.Quaternion(quaternion[2], quaternion[3], quaternion[1], quaternion[0]);
       rotObjectMatrix.makeRotationFromQuaternion(rotationQuaternion);
-      bunny.quaternion.setFromRotationMatrix(rotObjectMatrix);      
+      bunny.quaternion.setFromRotationMatrix(rotObjectMatrix);
     }
   }
 
