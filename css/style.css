@@ -2,15 +2,156 @@
  * Header
  */
 
-.animation-container {
-  position: relative;
-  height:40vh;
+.header {
+  align-content: center;
+  align-items: stretch;
+  box-shadow:
+    0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 2px 9px 1px rgba(0, 0, 0, 0.12),
+    0 4px 2px -2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-size: 20px;
+  height: 5vh;
+  min-height: 50px;
+  justify-content: flex-start;
+  padding: 16px 16px 0 16px;
+  position: fixed;
+  transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
   width: 100%;
-  margin: 10px auto;
+  will-change: transform;
+  z-index: 1000;
+  margin: 0;
+}
+
+.header h1 {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+body {
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 0;
+}
+
+canvas {
+  border-width: 1px;
+  border-style: solid;
+}
+
+p {
+  margin: 0.2em;
+}
+
+span.remix {
+  float: right;
+}
+
+button {
+  font-size: 0.9em;
+  margin: 5px 10px;
+}
+
+.serial-input {
+  margin: 10px 0;
+  height: 40px;
+  line-height: 40px;
+}
+
+.serial-input input {
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+  font-size: 0.8em;
+  width: 90%;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.serial-input input:disabled {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.serial-input button {
+  width: 8%;
+  margin: 0 auto;
+}
+
+.main {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 80px;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.hidden {
+  display: none;
+}
+
+.controls {
+  height: 40px;
+  line-height: 40px;
+}
+
+.controls span {
+  margin-left: 8px;
 }
 
 .chart-container {
   position: relative;
+  height: 40vh;
+  margin: 10px auto;
+}
+
+.notSupported {
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.log {
+  height: calc(50vh - 120px);
+  width: 100vw;
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+  font-size: 0.8em;
+  border-width: 1px;
+  border-style: solid;
+  overflow-x: hidden;
+  overflow-x: auto;
+  transition : color 0.1s linear;
+}
+
+.show-calibration .log {
+  width: 70vw ;
+}
+
+.calibration-container {
+  display: none;
+  position: relative;
+  width: calc(30vw - 10px);
+  height: calc(50vh - 120px);
+  margin-left: 10px;
+  border-width: 1px;
+  border-style: solid;
+  align-items: center;
+  justify-content: center;
+}
+
+.show-calibration .calibration-container {
+  display: grid;
+}
+
+.animation-container {
+  position: relative;
   height:40vh;
+  width: 100%;
   margin: 10px auto;
 }
