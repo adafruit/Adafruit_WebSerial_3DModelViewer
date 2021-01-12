@@ -64,12 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const notSupported = document.getElementById('notSupported');
     notSupported.classList.add('hidden');
   }
-  
+
   if (isWebGLAvailable()) {
     const webGLnotSupported = document.getElementById('webGLnotSupported');
     webGLnotSupported.classList.add('hidden');
   }
-  
+
   initBaudRate();
   loadAllSettings();
   updateTheme();
@@ -90,7 +90,7 @@ async function connect() {
   inputDone = port.readable.pipeTo(decoder.writable);
   inputStream = decoder.readable
     .pipeThrough(new TransformStream(new LineBreakTransformer()));
-  
+
   reader = inputStream.getReader();
   readLoop().catch(async function(error) {
     toggleUIConnected(false);
@@ -116,7 +116,7 @@ async function disconnect() {
     outputStream = null;
     outputDone = null;
   }
-  
+
   await port.close();
   port = null;
   showCalibration = false;
@@ -169,7 +169,7 @@ function logData(line) {
     let logLines = log.innerHTML.replace(/(\n)/gm, "").split("<br>");
     log.innerHTML = logLines.splice(-maxLogLength).join("<br>\n");
   }
-      
+
   if (autoscroll.checked) {
     log.scrollTop = log.scrollHeight
   }
@@ -186,13 +186,13 @@ function updateTheme() {
     .forEach((styleSheet) => {
       enableStyleSheet(styleSheet, false);
     });
-  
+
   if (darkMode.checked) {
     enableStyleSheet(darkSS, true);
   } else {
     enableStyleSheet(lightSS, true);
   }
-  
+
   if (showCalibration && !logContainer.classList.contains('show-calibration')) {
     logContainer.classList.add('show-calibration')
   } else if (!showCalibration && logContainer.classList.contains('show-calibration')) {
@@ -349,7 +349,7 @@ function loadSetting(setting, defaultValue) {
   if (value == null) {
     return defaultValue;
   }
-  
+
   return value;
 }
 
@@ -418,7 +418,7 @@ scene.background = new THREE.Color('black');
 
 {
   const objLoader = new OBJLoader2();
-  objLoader.load('https://cdn.glitch.com/aa632472-2111-44b6-99c1-81b39394c233/bunny.obj', (root) => {
+  objLoader.load('assets/bunny.obj', (root) => {
     bunny = root;
     scene.add(root);
   });
@@ -441,7 +441,7 @@ function render() {
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
   }
-  
+
   if (bunny != undefined) {
     if (angleType.value == "euler") {
       bunny.rotation.x = THREE.Math.degToRad(360 - orientation[2]);
