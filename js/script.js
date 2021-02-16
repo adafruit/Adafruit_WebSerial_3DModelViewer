@@ -10,7 +10,7 @@
 
 import * as THREE from 'https://threejs.org/build/three.module.js';
 import {OrbitControls} from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
-import {OBJLoader2} from 'https://threejs.org/examples/jsm/loaders/OBJLoader2.js';
+import {OBJLoader} from 'https://threejs.org/examples/jsm/loaders/OBJLoader.js';
 
 let port;
 let reader;
@@ -84,7 +84,7 @@ async function connect() {
   // - Request a port and open a connection.
   port = await navigator.serial.requestPort();
   // - Wait for the port to open.toggleUIConnected
-  await port.open({ baudrate: baudRate.value });
+  await port.open({ baudRate: baudRate.value });
 
   let decoder = new TextDecoderStream();
   inputDone = port.readable.pipeTo(decoder.writable);
@@ -417,7 +417,7 @@ scene.background = new THREE.Color('black');
 }
 
 {
-  const objLoader = new OBJLoader2();
+  const objLoader = new OBJLoader();
   objLoader.load('assets/bunny.obj', (root) => {
     bunny = root;
     scene.add(root);
