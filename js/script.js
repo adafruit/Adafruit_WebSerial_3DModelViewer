@@ -24,7 +24,7 @@ let orientation = [0, 0, 0];
 let quaternion = [1, 0, 0, 0];
 let calibration = [0, 0, 0, 0];
 
-const maxLogLength = 500;
+const maxLogLength = 100;
 const baudRates = [300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 74880, 115200, 230400, 250000, 500000, 1000000, 2000000];
 const log = document.getElementById('log');
 const butConnect = document.getElementById('butConnect');
@@ -51,7 +51,7 @@ function fitToContainer(canvas){
   canvas.height = canvas.offsetHeight;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   butConnect.addEventListener('click', clickConnect);
   butClear.addEventListener('click', clickClear);
   autoscroll.addEventListener('click', clickAutoscroll);
@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initBaudRate();
   loadAllSettings();
   updateTheme();
+  await finishDrawing();
+  await render();
 });
 
 /**
@@ -282,6 +284,14 @@ async function clickClear() {
   reset();
 }
 
+async function finishDrawing() {
+  return new Promise(requestAnimationFrame);
+}
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /**
  * @name LineBreakTransformer
  * TransformStream to parse the stream into lines.
@@ -435,7 +445,7 @@ function resizeRendererToDisplaySize(renderer) {
   return needResize;
 }
 
-function render() {
+async function render() {
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -457,7 +467,7 @@ function render() {
 
   renderer.render(scene, camera);
   updateCalibration();
-  requestAnimationFrame(render);
+  await sleep(10); // Allow 10ms for UI updates
+  await finishDrawing();
+  await render();
 }
-
-requestAnimationFrame(render);
