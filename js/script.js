@@ -453,14 +453,27 @@ async function render() {
 
   if (bunny != undefined) {
     if (angleType.value == "euler") {
-      bunny.rotation.x = THREE.Math.degToRad(360 - orientation[2]);
-      bunny.rotation.y = THREE.Math.degToRad(orientation[0]);
-      bunny.rotation.z = THREE.Math.degToRad(orientation[1]);
+      if (showCalibration) {
+          // BNO055
+        let rotationEuler = new THREE.Euler(
+          THREE.Math.degToRad(360 - orientation[2]),
+          THREE.Math.degToRad(orientation[0]),
+          THREE.Math.degToRad(orientation[1]),
+          'YZX'
+        );
+        bunny.setRotationFromEuler(rotationEuler);
+      } else {
+        let rotationEuler = new THREE.Euler(
+          THREE.Math.degToRad(orientation[2]),
+          THREE.Math.degToRad(orientation[0]-180),
+          THREE.Math.degToRad(-orientation[1]),
+          'YZX'
+        );
+        bunny.setRotationFromEuler(rotationEuler);
+      }
     } else {
-      let rotObjectMatrix = new THREE.Matrix4();
-      let rotationQuaternion = new THREE.Quaternion(quaternion[1], quaternion[3], -1 * quaternion[2], quaternion[0]);
-      rotObjectMatrix.makeRotationFromQuaternion(rotationQuaternion);
-      bunny.quaternion.setFromRotationMatrix(rotObjectMatrix);
+      let rotationQuaternion = new THREE.Quaternion(quaternion[1], quaternion[3], -quaternion[2], quaternion[0]);
+      bunny.setRotationFromQuaternion(rotationQuaternion);
     }
   }
 
