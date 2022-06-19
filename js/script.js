@@ -456,17 +456,17 @@ async function render() {
       if (showCalibration) {
           // BNO055
         let rotationEuler = new THREE.Euler(
-          THREE.Math.degToRad(360 - orientation[2]),
-          THREE.Math.degToRad(orientation[0]),
-          THREE.Math.degToRad(orientation[1]),
+          THREE.MathUtils.degToRad(360 - orientation[2]),
+          THREE.MathUtils.degToRad(orientation[0]),
+          THREE.MathUtils.degToRad(orientation[1]),
           'YZX'
         );
         bunny.setRotationFromEuler(rotationEuler);
       } else {
         let rotationEuler = new THREE.Euler(
-          THREE.Math.degToRad(orientation[2]),
-          THREE.Math.degToRad(orientation[0]-180),
-          THREE.Math.degToRad(-orientation[1]),
+          THREE.MathUtils.degToRad(orientation[2]),
+          THREE.MathUtils.degToRad(orientation[0]-180),
+          THREE.MathUtils.degToRad(-orientation[1]),
           'YZX'
         );
         bunny.setRotationFromEuler(rotationEuler);
